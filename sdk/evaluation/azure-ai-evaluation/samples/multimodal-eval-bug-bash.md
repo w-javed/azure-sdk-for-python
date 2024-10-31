@@ -19,7 +19,7 @@ If you do not have the required resources, please use the following resources:
 | Multi-modal Evaluators           | [Multi-modal Evaluators SDK](https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/evaluation/azure-ai-evaluation/azure/ai/evaluation/_evaluators/_multimodal) |
 
 
-Link to this page (here)[https://github.com/w-javed/azure-sdk-for-python/blob/Multi-modal-eval-Bug-Bash/sdk/evaluation/azure-ai-evaluation/samples/multimodal-eval-bug-bash.md]
+Link to this page [here](https://github.com/w-javed/azure-sdk-for-python/blob/Multi-modal-eval-Bug-Bash/sdk/evaluation/azure-ai-evaluation/samples/multimodal-eval-bug-bash.md)
 
 ### Clone the repository
 ```bash
