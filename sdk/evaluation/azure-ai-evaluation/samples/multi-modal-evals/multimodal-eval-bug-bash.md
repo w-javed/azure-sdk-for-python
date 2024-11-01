@@ -1,13 +1,16 @@
 ## Welcome to Bug Bash for Azure AI Evaluation SDK Multimodal support
 
-Azure AI Evaluation SDK supported conversation using text as an Input and text as an output. 
+Earlier Azure AI Evaluation SDK supported text based evaluators. Now, we are introducing new evaluators to evaluate Text + Images. 
 
-At Ignite we are introducing new evaluators for Content Safety and Protected Material to evaluate Text + Image. 
+Following are the evaluators has been introduced. 
+Content Safety (Self-harm, Violence, Sexual, Hate-Unfairness) and Protected Material. Since they are pub preview, we have marked them as @experimental that prints a following messages whenever used. 
 
-These are service based evaluators which means SDK calls Evaluation Service for evaluation of content harm and protected material. 
+<i>"This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information." </i>
+
+These are service based evaluators that calls Evaluation Service for evaluation of content harm and protected material. 
 
 ### Prerequisites
-- Azure AI Project in `EastUS2` region. It is used to get token/credential to call Evaluation service. 
+- Azure AI Project in `eastus2` region. It is used to get token/credential to call Evaluation service. 
 
 ### Resources
 
