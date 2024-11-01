@@ -64,11 +64,14 @@ pip install azure-ai-evaluation[remote]
 ```
 Above statement installs dependencies such as promptflow-azure, azure-identity etc.
 
-To pull latest from the project. 
+To pull latest from the working branch. 
 ```bash
 git clone https://github.com/Azure/azure-sdk-for-python.git
 git pull
-git checkout users/w-javed/Multi-modal-eval-Bug-Bash
+git remote add w-javed https://github.com/w-javed/azure-sdk-for-python.git
+git remote -v
+git fetch w-javed
+git checkout -b Multi-modal-eval-Bug-Bash w-javed/Multi-modal-eval-Bug-Bash
 ```
 
 ### Running Content Safety Evaluator
