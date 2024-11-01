@@ -4,9 +4,9 @@ from pprint import pprint
 from azure.identity import DefaultAzureCredential
 from azure.ai.evaluation import ContentSafetyMultimodalEvaluator
 
-os.environ["AZURE_SUBSCRIPTION_ID"] = "b17253fa-f327-42d6-9686-f3e553e24763"
-os.environ["RESOURCE_GROUP"] = "hanchi-test"
-os.environ["PROJECT_NAME"] = "ignite-multimodal-eval-project"
+os.environ["AZURE_SUBSCRIPTION_ID"] = ""
+os.environ["RESOURCE_GROUP"] = ""
+os.environ["PROJECT_NAME"] = ""
 
 project_scope = {
     "subscription_id": os.environ.get("AZURE_SUBSCRIPTION_ID"),
