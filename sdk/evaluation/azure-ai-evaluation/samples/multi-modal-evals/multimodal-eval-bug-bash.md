@@ -1,6 +1,6 @@
-## Welcome to Bug Bash for Azure AI Evaluation SDK Multimodal support
+## Welcome to Bug Bash for Azure AI Evaluation SDK for Multimodal
 
-Earlier Azure AI Evaluation SDK supported text based evaluators. Now, we are introducing new evaluators to evaluate Text + Images. 
+Earlier Azure AI Evaluation SDK supported text based evaluators. Now, we are introducing new evaluators to evaluate Text + Images (In Preview)
 
 Following are the evaluators has been introduced. 
 Content Safety (Self-harm, Violence, Sexual, Hate-Unfairness) and Protected Material. Since they are pub preview, we have marked them as @experimental that prints a following messages whenever used. 
