@@ -7,7 +7,7 @@ Content Safety (Self-harm, Violence, Sexual, Hate-Unfairness) and Protected Mate
 
 <i>"This is an experimental class, and may change at any time. Please see https://aka.ms/azuremlexperimental for more information." </i>
 
-These are service based evaluators that calls Evaluation Service for evaluation of content harm and protected material. 
+These are service based evaluators that calls [Evaluation Service](https://msdata.visualstudio.com/Vienna/_git/vienna?path=%2Fsrc%2Fazureml-api%2Fsrc%2FRAISvc%2FAnnotation%20submission%20and%20retrieval.ipynb&_a=preview) for evaluation of content harm and protected material. 
 
 ### Prerequisites
 - Azure AI Project in `eastus2` region. It is used to get token/credential to call Evaluation service. 
