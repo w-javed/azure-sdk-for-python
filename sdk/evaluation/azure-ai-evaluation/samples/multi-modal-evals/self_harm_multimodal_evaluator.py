@@ -2,7 +2,7 @@ import os
 from pprint import pprint
 
 from azure.identity import DefaultAzureCredential
-from azure.ai.evaluation import SelfHarmMultimodalEvaluator
+from azure.ai.evaluation import ProtectedMaterialMultimodalEvaluator
 
 os.environ["AZURE_SUBSCRIPTION_ID"] = ""
 os.environ["RESOURCE_GROUP"] = ""

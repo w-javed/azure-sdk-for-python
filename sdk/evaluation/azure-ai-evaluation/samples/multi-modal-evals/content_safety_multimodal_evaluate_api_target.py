@@ -24,7 +24,7 @@ if __name__ == '__main__':
     print("\n===== Reading Data File =======")
 
     data_path = os.path.join(pathlib.Path(__file__).parent.resolve(), "data")
-    file_path = os.path.join(data_path, "dataset_messages_image_urls.jsonl")
+    file_path = os.path.join(data_path, "dataset_messages_image_urls_target.jsonl")
     input_data = pd.read_json(file_path, lines=True)
     pprint(input_data)
 
