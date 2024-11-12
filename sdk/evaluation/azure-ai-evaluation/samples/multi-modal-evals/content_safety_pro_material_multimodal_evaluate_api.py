@@ -9,9 +9,9 @@ import json
 from azure.identity import DefaultAzureCredential
 from azure.ai.evaluation import evaluate, ContentSafetyMultimodalEvaluator, ProtectedMaterialMultimodalEvaluator
 
-os.environ["AZURE_SUBSCRIPTION_ID"] = "b17253fa-f327-42d6-9686-f3e553e24763"
-os.environ["RESOURCE_GROUP"] = "hanchi-test"
-os.environ["PROJECT_NAME"] = "hancwang-eus2-0339"
+os.environ["AZURE_SUBSCRIPTION_ID"] = ""
+os.environ["RESOURCE_GROUP"] = ""
+os.environ["PROJECT_NAME"] = ""
 
 if __name__ == '__main__':
     
