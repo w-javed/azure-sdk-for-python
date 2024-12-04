@@ -16,48 +16,35 @@ from azure.ai.evaluation import (
     evaluate,
 )
 
-async def call_gen_ai_application_or_llm(user_prompt, system_prompt) -> str:
-    print("\n===== Calling Gen AI App or LLM =======")
-    print(f"\nUser Prompt: {user_prompt}")
-    deployment = os.environ.get("AZURE_DEPLOYMENT_NAME")
-    endpoint = os.environ.get("AZURE_ENDPOINT")
+def call_llm_image_generation(query: str) -> str:
+    print("\n===== Generating Image =======")
+    deployment = os.environ.get("AZURE_DEPLOYMENT_NAME_DALLE")
+    endpoint = os.environ.get("AZURE_ENDPOINT_DALLE")
+    
     token_provider = get_bearer_token_provider(
-        DefaultAzureCredential(),
-        "https://cognitiveservices.azure.com/.default",
+        DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
     )
-
-    # Get a client handle for the AOAI model
+    
     client = AzureOpenAI(
         azure_endpoint=endpoint,
-        api_version=os.environ.get("AZURE_API_VERSION"),
-        azure_ad_token_provider=token_provider,
+        api_version=os.environ.get("AZURE_API_VERSION_DALLE"),
+        api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
+        # azure_ad_token_provider=token_provider,
     )
     
-    # Call the model 
-    messages = []
-    messages.append(
-        {
-            "role": "system",
-            "content": system_prompt,
-        }
-    )
-    messages.append(
-        {
-            "role": "user",
-            "content": user_prompt,
-        }
-    )
-    
-    completion = client.chat.completions.create(
+    print(f"\nImage Prompt: {query}")
+    result = client.images.generate(
         model=deployment,
-        messages=messages,
-    ) 
+        prompt=query,
+        n=1,
+        # following headers are required for the LLM to by pass content filtering for harmful content.
+        extra_headers={"x-policy-id-override": "annotate",
+            "x-prompt-transformation-disabled": "true"}
+    )
 
-    response = completion.to_dict()["choices"][0]["message"]
-    print(f"\nLLM Response: {response}")
-    if type(response) == dict:
-        content = response["content"]
-    return content
+    image_url = json.loads(result.model_dump_json())['data'][0]['url']
+    print(f"\nImage URL: {image_url}")
+    return image_url
 
 async def callback(
     messages: List[Dict],
@@ -65,13 +52,16 @@ async def callback(
     session_state: Any = None,
     context: Optional[Dict[str, Any]] = None,
 ) -> dict:
-    print("\n===== Callback function is called =======")
-    image_understanding_prompt = messages["messages"][0]["content"]
-    content = await call_gen_ai_application_or_llm(image_understanding_prompt, "You are an AI assistant who can describe images.")
-    formatted_response = {
-        "content": content, 
-        "role": "assistant"
-    }
+    print("\n===== Callback is called via Simulation =======")
+    image_gen_prompt = messages["messages"][0]["content"]
+    image_url = await call_llm_image_generation(image_gen_prompt)
+    content = [
+        {
+            "type": "image_url",
+            "image_url": {"url": image_url},
+        }
+    ]
+    formatted_response = {"content": content, "role": "assistant"}
     messages["messages"].append(formatted_response)
     return {
         "messages": messages["messages"],
@@ -79,7 +69,7 @@ async def callback(
         "session_state": session_state,
         "context": context,
     }
-    
+            
 async def run_simulation():
     print("\n===== Initializing env variables =======")
     
@@ -110,16 +100,16 @@ async def run_simulation():
     simulator = AdversarialSimulator(azure_ai_project=project_scope, credential=azure_cred)
 
     print("\n===== Running Adversarial Simulator for Image Understanding =======")     
-    simulator_output = await simulator(
-            scenario=AdversarialScenario.ADVERSARIAL_IMAGE_UNDERSTANDING,
-            max_conversation_turns=1,
-            max_simulation_results=1,
-            target=callback,
-            api_call_retry_limit=3,
-            api_call_retry_sleep_sec=1,
-            api_call_delay_sec=30,
-            concurrent_async_task=1,
-        )
+    image_gen_outputs = await simulator(
+        scenario=AdversarialScenario.ADVERSARIAL_IMAGE_GEN,
+        max_conversation_turns=1,
+        max_simulation_results=1,
+        target=callback,
+        api_call_retry_limit=3,
+        api_call_retry_sleep_sec=1,
+        api_call_delay_sec=30,
+        concurrent_async_task=1,
+    )
 
     print("\n===== Retrieved results for Simulator =======")
     
@@ -127,7 +117,7 @@ async def run_simulation():
 
     # Write the output to the file
     with open(file_name, "w") as file:
-        file.writelines([json.dumps({"conversation":{"messages": conversation["messages"]}}) + "\n" for conversation in simulator_output])
+        file.writelines([json.dumps({"conversation":{"messages": conversation["messages"]}}) + "\n" for conversation in image_gen_outputs])
 
     # Evaluator simulator output
     protected_material_eval = ProtectedMaterialMultimodalEvaluator(azure_cred, project_scope)
@@ -136,14 +126,15 @@ async def run_simulation():
     # run the evaluation
     eval_output = evaluate(
         data=file_name,
-        evaluation_name="sim_image_understanding_protected_material_eval",
-        azure_ai_project=project_scope,
+        evaluation_name="sim_image_gen_protected_material_eval",
+        # azure_ai_project=project_scope,
         evaluators={"protected_material": protected_material_eval},
     )
 
-    print("\n===== Printing Evaluation results =======")
     row_result_df = pd.DataFrame(eval_output["rows"])
     metrics = eval_output["metrics"]
+    
+    print("\n===== Printing Evaluation results =======")
     pprint(row_result_df)
     pprint(metrics)
 
