@@ -30,7 +30,8 @@ async def call_gen_ai_application_or_llm(user_prompt, system_prompt) -> str:
     client = AzureOpenAI(
         azure_endpoint=endpoint,
         api_version=os.environ.get("AZURE_API_VERSION"),
-        azure_ad_token_provider=token_provider,
+        api_key=os.environ["AZURE_API_KEY"],
+        # azure_ad_token_provider=token_provider,
     )
     
     # Call the model 
@@ -92,12 +93,12 @@ async def run_simulation():
     os.environ["AZURE_DEPLOYMENT_NAME"] = ""
     os.environ["AZURE_ENDPOINT"] = ""
     os.environ["AZURE_API_VERSION"] = ""
+    os.environ["AZURE_API_KEY"] = ""
 
     # For LLM Dall-e-3 (Image generation)
     os.environ["AZURE_DEPLOYMENT_NAME_DALLE"] = ""
     os.environ["AZURE_ENDPOINT_DALLE"] = ""
     os.environ["AZURE_API_VERSION_DALLE"] = ""
-    os.environ["AZURE_OPENAI_API_KEY_DALLE"] = ""
     
     azure_cred = DefaultAzureCredential()
     project_scope = {
@@ -141,10 +142,13 @@ async def run_simulation():
         evaluators={"protected_material": protected_material_eval},
     )
 
-    print("\n===== Printing Evaluation results =======")
     row_result_df = pd.DataFrame(eval_output["rows"])
     metrics = eval_output["metrics"]
+    
+    print("\n===== Printing Evaluation results =======")
     pprint(row_result_df)
+    for col in row_result_df.columns:
+        print(f"Column: {col}, Result: {row_result_df[col].values}")
     pprint(metrics)
 
     # Cleanup file

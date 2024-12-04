@@ -16,7 +16,7 @@ from azure.ai.evaluation import (
     evaluate,
 )
 
-def call_llm_image_generation(query: str) -> str:
+async def call_llm_image_generation(query: str) -> str:
     print("\n===== Generating Image =======")
     deployment = os.environ.get("AZURE_DEPLOYMENT_NAME_DALLE")
     endpoint = os.environ.get("AZURE_ENDPOINT_DALLE")
@@ -28,8 +28,8 @@ def call_llm_image_generation(query: str) -> str:
     client = AzureOpenAI(
         azure_endpoint=endpoint,
         api_version=os.environ.get("AZURE_API_VERSION_DALLE"),
-        api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
-        # azure_ad_token_provider=token_provider,
+        # api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
+        azure_ad_token_provider=token_provider,
     )
     
     print(f"\nImage Prompt: {query}")
@@ -43,7 +43,6 @@ def call_llm_image_generation(query: str) -> str:
     )
 
     image_url = json.loads(result.model_dump_json())['data'][0]['url']
-    print(f"\nImage URL: {image_url}")
     return image_url
 
 async def callback(
@@ -55,6 +54,7 @@ async def callback(
     print("\n===== Callback is called via Simulation =======")
     image_gen_prompt = messages["messages"][0]["content"]
     image_url = await call_llm_image_generation(image_gen_prompt)
+    print(f"\nImage URL: {image_url}")
     content = [
         {
             "type": "image_url",
@@ -136,6 +136,8 @@ async def run_simulation():
     
     print("\n===== Printing Evaluation results =======")
     pprint(row_result_df)
+    for col in row_result_df.columns:
+        print(f"Column: {col}, Result: {row_result_df[col].values}")
     pprint(metrics)
 
     # Cleanup file
