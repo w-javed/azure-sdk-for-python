@@ -67,4 +67,4 @@ python e2e_simulation_eval_multi_modal_image_generation.py
 Please create a bug/task for any issue you encounter during bug bash using following link. Thanks!
 ADO [link](https://msdata.visualstudio.com/Vienna/_workitems/edit/3299596/)
 
-Link to this page [here](https://github.com/w-javed/azure-sdk-for-python/blob/Multi-modal-eval-Bug-Bash/sdk/evaluation/azure-ai-evaluation/samples/multi-modal-evals/multimodal-eval-bug-bash.md)
+Link to this page [here](https://github.com/w-javed/azure-sdk-for-python/blob/Multi-modal-eval-Bug-Bash/sdk/evaluation/azure-ai-evaluation/samples/multi-modal-evals/multimodal-simulator-and-eval-bug-bash.md)
