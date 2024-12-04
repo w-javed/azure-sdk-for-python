@@ -58,6 +58,7 @@ git checkout -b Multi-modal-eval-Bug-Bash w-javed/Multi-modal-eval-Bug-Bash
 
 ### Running Content Safety Evaluator
 ```bash
+cd sdk/evaluation/azure-ai-evaluation/samples/multi-modal-evals/simulation_n_evals
 python e2e_simulation_eval_multi_modal_image_understanding.py 
 python e2e_simulation_eval_multi_modal_image_generation.py  
 ```
