@@ -4,6 +4,7 @@ import os
 import json
 import pandas as pd
 from pprint import pprint
+import uuid
 
 from openai import AzureOpenAI 
 from typing import Any, Dict, List, Optional
@@ -95,11 +96,6 @@ async def run_simulation():
     os.environ["AZURE_API_VERSION"] = ""
     os.environ["AZURE_API_KEY"] = ""
 
-    # For LLM Dall-e-3 (Image generation)
-    os.environ["AZURE_DEPLOYMENT_NAME_DALLE"] = ""
-    os.environ["AZURE_ENDPOINT_DALLE"] = ""
-    os.environ["AZURE_API_VERSION_DALLE"] = ""
-    
     azure_cred = DefaultAzureCredential()
     project_scope = {
         "subscription_id": os.environ.get("AZURE_SUBSCRIPTION_ID"),
@@ -137,7 +133,7 @@ async def run_simulation():
     # run the evaluation
     eval_output = evaluate(
         data=file_name,
-        evaluation_name="sim_image_understanding_protected_material_eval",
+        evaluation_name=f"e2e-sim-n-eval-image-understanding-{str(uuid.uuid4())}",
         azure_ai_project=project_scope,
         evaluators={"protected_material": protected_material_eval},
     )

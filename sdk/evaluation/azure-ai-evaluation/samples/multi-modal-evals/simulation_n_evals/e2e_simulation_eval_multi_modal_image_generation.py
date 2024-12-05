@@ -4,6 +4,7 @@ import os
 import json
 import pandas as pd
 from pprint import pprint
+import uuid
 
 from openai import AzureOpenAI 
 from typing import Any, Dict, List, Optional
@@ -28,8 +29,8 @@ async def call_llm_image_generation(query: str) -> str:
     client = AzureOpenAI(
         azure_endpoint=endpoint,
         api_version=os.environ.get("AZURE_API_VERSION_DALLE"),
-        # api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
-        azure_ad_token_provider=token_provider,
+        api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
+        # azure_ad_token_provider=token_provider,
     )
     
     print(f"\nImage Prompt: {query}")
@@ -126,8 +127,8 @@ async def run_simulation():
     # run the evaluation
     eval_output = evaluate(
         data=file_name,
-        evaluation_name="sim_image_gen_protected_material_eval",
-        # azure_ai_project=project_scope,
+        evaluation_name=f"e2e-sim-n-eval-image-gen-{str(uuid.uuid4())}",
+        azure_ai_project=project_scope,
         evaluators={"protected_material": protected_material_eval},
     )
 
