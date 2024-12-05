@@ -45,6 +45,10 @@ Please follow detailed documentation [here](https://docs.aml-babel.com/tools/azu
 pip install promptflow-azure
 pip install "git+https://github.com/Azure/azure-sdk-for-python.git@main#egg=azure-ai-evaluation&subdirectory=sdk/evaluation/azure-ai-evaluation"
 ```
+or 
+```bash
+pip install azure_ai_evaluation-1.0.1-py3-none-any.whl    
+```
 
 To pull latest from the working branch. 
 ```bash
