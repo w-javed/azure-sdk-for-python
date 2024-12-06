@@ -29,8 +29,8 @@ async def call_llm_image_generation(query: str) -> str:
     client = AzureOpenAI(
         azure_endpoint=endpoint,
         api_version=os.environ.get("AZURE_API_VERSION_DALLE"),
-        api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
-        # azure_ad_token_provider=token_provider,
+        # api_key=os.environ["AZURE_OPENAI_API_KEY_DALLE"],
+        azure_ad_token_provider=token_provider,
     )
     
     print(f"\nImage Prompt: {query}")
