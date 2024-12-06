@@ -14,6 +14,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from azure.ai.evaluation import (
     ProtectedMaterialMultimodalEvaluator,
+    ContentSafetyMultimodalEvaluator,
     evaluate,
 )
 
@@ -122,14 +123,18 @@ async def run_simulation():
 
     # Evaluator simulator output
     protected_material_eval = ProtectedMaterialMultimodalEvaluator(azure_cred, project_scope)
+    content_safety_eval = ContentSafetyMultimodalEvaluator(azure_cred, project_scope)
     
     print("\n===== Running Evaluator with Simulation Datasets =======")
     # run the evaluation
     eval_output = evaluate(
         data=file_name,
-        evaluation_name=f"e2e-sim-n-eval-image-gen-{str(uuid.uuid4())}",
+        evaluation_name=f"cs_pm_e2e-sim-n-eval-image-gen-{str(uuid.uuid4())}",
         azure_ai_project=project_scope,
-        evaluators={"protected_material": protected_material_eval},
+        evaluators={
+            "protected_material": protected_material_eval,
+            "content_safety": content_safety_eval,
+        },
     )
 
     row_result_df = pd.DataFrame(eval_output["rows"])

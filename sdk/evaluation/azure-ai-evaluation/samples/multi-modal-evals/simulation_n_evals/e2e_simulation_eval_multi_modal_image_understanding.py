@@ -31,8 +31,8 @@ async def call_gen_ai_application_or_llm(user_prompt, system_prompt) -> str:
     client = AzureOpenAI(
         azure_endpoint=endpoint,
         api_version=os.environ.get("AZURE_API_VERSION"),
-        # api_key=os.environ["AZURE_API_KEY"],
-        azure_ad_token_provider=token_provider,
+        api_key=os.environ["AZURE_API_KEY"],
+        # azure_ad_token_provider=token_provider,
     )
     
     # Call the model 
@@ -91,9 +91,9 @@ async def run_simulation():
     os.environ["AZURE_PROJECT_NAME"] = ""
 
     # For LLM (Image Understanding use case)
-    os.environ["AZURE_DEPLOYMENT_NAME"] = ""
-    os.environ["AZURE_ENDPOINT"] = ""
-    os.environ["AZURE_API_VERSION"] = ""
+    os.environ["AZURE_DEPLOYMENT_NAME"] = "gpt-4o"
+    os.environ["AZURE_ENDPOINT"] = "https://openai-sdk-test-automation-eastus2.openai.azure.com"
+    os.environ["AZURE_API_VERSION"] = "2024-08-01-preview"
     os.environ["AZURE_API_KEY"] = ""
 
     azure_cred = DefaultAzureCredential()
