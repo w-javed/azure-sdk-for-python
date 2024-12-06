@@ -85,9 +85,9 @@ async def run_simulation():
     os.environ["AZURE_API_VERSION"] = ""
 
     # For LLM Dall-e-3 (Image generation)
-    os.environ["AZURE_DEPLOYMENT_NAME_DALLE"] = ""
-    os.environ["AZURE_ENDPOINT_DALLE"] = ""
-    os.environ["AZURE_API_VERSION_DALLE"] = ""
+    os.environ["AZURE_DEPLOYMENT_NAME_DALLE"] = "Dalle3"
+    os.environ["AZURE_ENDPOINT_DALLE"] = "https://roaroai.openai.azure.com/"
+    os.environ["AZURE_API_VERSION_DALLE"] = "2024-05-01-preview"
     os.environ["AZURE_OPENAI_API_KEY_DALLE"] = ""
     
     azure_cred = DefaultAzureCredential()
