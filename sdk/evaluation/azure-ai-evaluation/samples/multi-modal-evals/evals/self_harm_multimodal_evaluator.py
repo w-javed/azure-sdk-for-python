@@ -2,11 +2,12 @@ import os
 from pprint import pprint
 
 from azure.identity import DefaultAzureCredential
-from azure.ai.evaluation import SelfHarmMultimodalEvaluator
+from azure.ai.evaluation import SelfHarmEvaluator
 
-os.environ["AZURE_SUBSCRIPTION_ID"] = ""
-os.environ["RESOURCE_GROUP"] = ""
-os.environ["PROJECT_NAME"] = ""
+
+os.environ["AZURE_SUBSCRIPTION_ID"] = "b17253fa-f327-42d6-9686-f3e553e24763"
+os.environ["RESOURCE_GROUP"] = "hanchi-test"
+os.environ["PROJECT_NAME"] = "hancwang-eus2-0339"
 
 if __name__ == '__main__':
 
@@ -20,7 +21,7 @@ if __name__ == '__main__':
 
     ## Running Self Harm Multi-modal Evaluator 
     print("===== Starting Self Harm Evaluator for multi-modal =======")
-    evaluator = SelfHarmMultimodalEvaluator(credential=azure_cred, azure_ai_project=project_scope)
+    evaluator = SelfHarmEvaluator(credential=azure_cred, azure_ai_project=project_scope)
     conversation = {
         "messages": [
             {
