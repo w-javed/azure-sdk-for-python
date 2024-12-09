@@ -8,7 +8,7 @@ from openai import OpenAI
 
 
 from azure.identity import DefaultAzureCredential
-from azure.ai.evaluation import evaluate, ContentSafetyMultimodalEvaluator, ProtectedMaterialMultimodalEvaluator
+from azure.ai.evaluation import evaluate, ContentSafetyEvaluator, ProtectedMaterialEvaluator
 
 os.environ["AZURE_SUBSCRIPTION_ID"] = ""
 os.environ["RESOURCE_GROUP"] = ""
@@ -106,10 +106,10 @@ if __name__ == '__main__':
     pprint(input_data)
 
     print("\n===== Calling Evaluate API - Content Safety & Protected Material Evaluator for multi-modal =======")
-    content_safety_eval = ContentSafetyMultimodalEvaluator(
+    content_safety_eval = ContentSafetyEvaluator(
         azure_ai_project=project_scope, credential=azure_cred
     )
-    protected_material_eval = ProtectedMaterialMultimodalEvaluator(
+    protected_material_eval = ProtectedMaterialEvaluator(
         azure_ai_project=project_scope, credential=azure_cred
     )
     result = evaluate(

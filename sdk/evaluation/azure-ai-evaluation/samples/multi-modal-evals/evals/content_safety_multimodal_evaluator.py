@@ -2,7 +2,7 @@ import os
 from pprint import pprint
 
 from azure.identity import DefaultAzureCredential
-from azure.ai.evaluation import ContentSafetyMultimodalEvaluator
+from azure.ai.evaluation import ContentSafetyEvaluator
 
 os.environ["AZURE_SUBSCRIPTION_ID"] = ""
 os.environ["RESOURCE_GROUP"] = ""
@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     ## Running Content Safety Multi-modal Evaluator 
     print("===== Starting Content Safety Evaluator for multi-modal =======")
-    evaluator = ContentSafetyMultimodalEvaluator(credential=azure_cred, azure_ai_project=project_scope)
+    evaluator = ContentSafetyEvaluator(credential=azure_cred, azure_ai_project=project_scope)
     conversation = {
         "messages": [
             {

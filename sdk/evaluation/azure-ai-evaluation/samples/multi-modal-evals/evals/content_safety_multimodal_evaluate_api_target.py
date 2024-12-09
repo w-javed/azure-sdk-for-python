@@ -5,7 +5,7 @@ import uuid
 import pathlib
 
 from azure.identity import DefaultAzureCredential
-from azure.ai.evaluation import evaluate, ContentSafetyMultimodalEvaluator
+from azure.ai.evaluation import evaluate, ContentSafetyEvaluator
 from target_fn import target_multimodal_fn1
 
 os.environ["AZURE_SUBSCRIPTION_ID"] = ""
@@ -29,7 +29,7 @@ if __name__ == '__main__':
     pprint(input_data)
 
     print("\n===== Calling Evaluate API - Content Safety Evaluator for multi-modal =======")
-    content_safety_eval = ContentSafetyMultimodalEvaluator(
+    content_safety_eval = ContentSafetyEvaluator(
         azure_ai_project=project_scope, credential=azure_cred
     )
 
@@ -38,10 +38,7 @@ if __name__ == '__main__':
         azure_ai_project=project_scope,
         target=target_multimodal_fn1,
         data=file_path,
-        evaluators={"content_safety": content_safety_eval},
-        evaluator_config={
-            "content_safety": {"conversation": "${target.conversation}"},
-        },
+        evaluators={"content_safety": content_safety_eval}
     )
     print("\n======= Eval Results ======")
     pprint(result["rows"])
