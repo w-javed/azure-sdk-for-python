@@ -10,6 +10,7 @@ from openai import AzureOpenAI
 from typing import Any, Dict, List, Optional
 
 from azure.ai.evaluation.simulator import AdversarialScenario, AdversarialSimulator
+from azure.ai.evaluation.simulator._adversarial_scenario import _UnstableAdversarialScenario
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from azure.ai.evaluation import (
@@ -84,6 +85,7 @@ async def run_simulation():
     os.environ["AZURE_DEPLOYMENT_NAME"] = ""
     os.environ["AZURE_ENDPOINT"] = ""
     os.environ["AZURE_API_VERSION"] = ""
+    os.environ["AZURE_API_KEY"] = ""
 
     # For LLM Dall-e-3 (Image generation)
     os.environ["AZURE_DEPLOYMENT_NAME_DALLE"] = "Dalle3"
@@ -101,11 +103,11 @@ async def run_simulation():
     print("\n===== Initializing Adversarial Simulator =======")            
     simulator = AdversarialSimulator(azure_ai_project=project_scope, credential=azure_cred)
 
-    print("\n===== Running Adversarial Simulator for Image Understanding =======")     
+    print("\n===== Running Adversarial Simulator for Image Generation =======")     
     image_gen_outputs = await simulator(
-        scenario=AdversarialScenario.ADVERSARIAL_IMAGE_GEN,
+        scenario=_UnstableAdversarialScenario.ADVERSARIAL_IMAGE_GEN,
         max_conversation_turns=1,
-        max_simulation_results=1,
+        max_simulation_results=3,
         target=callback,
         api_call_retry_limit=3,
         api_call_retry_sleep_sec=1,
