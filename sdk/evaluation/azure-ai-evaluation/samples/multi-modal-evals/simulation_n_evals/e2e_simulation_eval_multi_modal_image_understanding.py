@@ -10,6 +10,7 @@ from openai import AzureOpenAI
 from typing import Any, Dict, List, Optional
 
 from azure.ai.evaluation.simulator import AdversarialScenario, AdversarialSimulator
+from azure.ai.evaluation.simulator._adversarial_scenario import _UnstableAdversarialScenario
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 from azure.ai.evaluation import (
@@ -108,7 +109,7 @@ async def run_simulation():
 
     print("\n===== Running Adversarial Simulator for Image Understanding =======")     
     simulator_output = await simulator(
-            scenario=AdversarialScenario.ADVERSARIAL_IMAGE_UNDERSTANDING,
+            scenario=_UnstableAdversarialScenario.ADVERSARIAL_IMAGE_MULTIMODAL,
             max_conversation_turns=1,
             max_simulation_results=1,
             target=callback,
