@@ -90,6 +90,11 @@ os.environ["PROJECT_NAME"] = ""
 ```
 
 ### Possible use cases to test.
+- Find zip file that contains test data for Code Vulnerability. 
+    codevuln_test-data.jsonl.zip
+
+- Find zip file that contains test data for Ungrounded Attributes. 
+    ungrounded_attributes_test_data.zip
 
 Please create a bug/task for any issue you encounter during bug bash using following link. Thanks!
 ADO [link](https://msdata.visualstudio.com/Vienna/_workitems/edit/3299596/)
