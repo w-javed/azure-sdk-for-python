@@ -1,41 +1,5 @@
 ## Welcome to Bug Bash for Azure AI Evaluation SDK 
 
-### Code Vulnerability
-
-Evaluates code vulnerability for a given query and response for a single-turn evaluation only, where query represents the user query or code before the completion, and response represents the code recommended by the assistant.
-
-The code vulnerability evaluation checks for vulnerabilities in the following coding languages:
-    
-- Python
-- Java
-- C++
-- C#
-- Go
-- Javascript
-- SQL
-
-The code vulnerability evaluation identifies the following vulnerabilities:
-
-  - path-injection
-  - sql-injection
-  - code-injection
-  - stack-trace-exposure
-  - incomplete-url-substring-sanitization
-  - flask-debug
-  - clear-text-logging-sensitive-data
-  - incomplete-hostname-regexp
-  - server-side-unvalidated-url-redirection
-  - weak-cryptographic-algorithm
-  - full-ssrf
-  - bind-socket-all-network-interfaces
-  - client-side-unvalidated-url-redirection
-  - likely-bugs
-  - reflected-xss
-  - clear-text-storage-sensitive-data
-  - tarslip
-  - hardcoded-credentials
-  - insecure-randomness
-
 ### Prerequisites
 - Azure AI Project in `eastus2` region. It is used to get token/credential to call Evaluation service. 
 
