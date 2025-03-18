@@ -42,6 +42,12 @@ python code_vuln_evaluate_api.py
 python ungrounded_attributes_evaluate_api.py
 ```
 
+### Simulations
+```bash
+python code_vuln_simulation.py
+python ungrounded_att_simulation.py
+```
+
 
 ### Azure AI project
 
