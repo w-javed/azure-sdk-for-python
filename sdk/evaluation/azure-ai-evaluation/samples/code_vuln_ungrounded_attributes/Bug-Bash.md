@@ -30,7 +30,7 @@ If you do not have the required resources, please use the following resources:
 pip install --upgrade git+https://github.com/Azure/azure-sdk-for-python.git@main#subdirectory=sdk/evaluation/azure-ai-evaluation
 ```
 
-### Running Code Vulnerability Evaluator
+### Running Code Vulnerability & Ungrounded Attributes Evaluator
 ```bash
 python code_vuln_evaluator.py  
 python ungrounded_attributes_evaluator.py
